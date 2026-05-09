@@ -1095,9 +1095,9 @@ elif page == "Live Feed":
 elif page == "AI Chatbot":
     page_header("🤖 AI Chatbot","Ask anything about your investigations in plain English")
     samples = {
-        "Admin":      ["Show all ongoing stories","Show the audit log","List all users and their roles","Which city has the most stories?","List all high credibility sources","Show all completed stories","How many interviews were done online?"],
-        "Journalist": ["Show all ongoing stories","List all crime stories","List all high credibility sources","Which stories have the most interviews?","Show all timeline events ordered by date","List all locations and their countries","Show all completed stories"],
-        "Viewer":     ["Show all ongoing stories","List all completed stories","Show all locations","Which city has the most stories?","List all high credibility sources","Show all timeline events"],
+        "Admin":      ["Show all ongoing stories","Show the audit log","Which users are in the system?","Most active cities","List high credibility sources"],
+        "Journalist": ["Show all crime stories","List sources in politics stories","Show all interviews this month","Which stories have no documents?","Show recent timeline events"],
+        "Viewer":     ["Show all ongoing stories","List completed stories","Show recent timeline events","Which city has the most stories?"],
     }
     with st.sidebar:
         st.markdown(f"<span class='sidebar-section-label'>Try asking</span>", unsafe_allow_html=True)

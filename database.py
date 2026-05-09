@@ -9,6 +9,21 @@ from datetime import date
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
 
+
+@st.cache_resource
+def get_engine():
+    cfg = _cfg()
+    url = URL.create(
+        drivername = "mysql+pymysql",
+        username   = cfg["user"],
+        password   = cfg["password"],
+        host       = cfg["host"],
+        port       = cfg["port"],
+        database   = cfg["database"],
+    )
+    return create_engine(url)
+
+
 # ── CONNECTION ─────────────────────────────────────────────
 def _cfg():
     """Read DB credentials from st.secrets (Streamlit Cloud deployment)."""

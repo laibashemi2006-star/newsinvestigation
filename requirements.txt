@@ -1,10 +1,7 @@
 streamlit
-google-generativeai
-mysql-connector-python
 pandas
-numpy
-pillow
-opencv-python
-torch
-scikit-learn
+mysql-connector-python
+pymysql
+sqlalchemy
 groq
+ 

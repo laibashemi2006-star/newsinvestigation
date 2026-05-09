@@ -15,11 +15,12 @@ def get_connection():
             port     = int(st.secrets["db"]["port"]),
             database = st.secrets["db"]["database"],
             connection_timeout = 10,
+            ssl_disabled = True,
+            auth_plugin = "mysql_native_password",
         )
     except Exception as e:
         st.error(f"Database connection failed: {e}")
         return None
-
 
 def run_query(sql, params=None, fetch=True):
     conn = get_connection()

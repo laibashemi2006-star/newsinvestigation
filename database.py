@@ -269,3 +269,161 @@ def get_audit_log():
 # ══════════════════════════════════════════════════════════
 def run_raw_query(sql):
     return run_query(sql)
+
+# ══════════════════════════════════════════════════════════
+# DROPDOWN HELPERS
+# ══════════════════════════════════════════════════════════
+def get_story_ids():
+    return run_query("SELECT Story_ID, Title FROM Story ORDER BY Story_ID")
+
+def get_source_ids():
+    return run_query("SELECT Source_ID, Name FROM Source ORDER BY Source_ID")
+
+# ══════════════════════════════════════════════════════════
+# STORY CRUD
+# ══════════════════════════════════════════════════════════
+def add_story(title, desc, category, start_date, status):
+    return run_query(
+        "INSERT INTO Story (Title, Description, Category, Start_Date, Status) VALUES (%s,%s,%s,%s,%s)",
+        (title, desc, category, start_date, status), fetch=False)
+
+def update_story(story_id, title, desc, category, start_date, status):
+    return run_query(
+        "UPDATE Story SET Title=%s, Description=%s, Category=%s, Start_Date=%s, Status=%s WHERE Story_ID=%s",
+        (title, desc, category, start_date, status, story_id), fetch=False)
+
+def delete_story(story_id):
+    return run_query("DELETE FROM Story WHERE Story_ID=%s", (story_id,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# SOURCE CRUD
+# ══════════════════════════════════════════════════════════
+def add_source(name, stype, contact, credibility):
+    return run_query(
+        "INSERT INTO Source (Name, Type, Contact_Info, Credibility_Level) VALUES (%s,%s,%s,%s)",
+        (name, stype, contact, credibility), fetch=False)
+
+def update_source(source_id, name, stype, contact, credibility):
+    return run_query(
+        "UPDATE Source SET Name=%s, Type=%s, Contact_Info=%s, Credibility_Level=%s WHERE Source_ID=%s",
+        (name, stype, contact, credibility, source_id), fetch=False)
+
+def delete_source(source_id):
+    return run_query("DELETE FROM Source WHERE Source_ID=%s", (source_id,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# INTERVIEW CRUD
+# ══════════════════════════════════════════════════════════
+def add_interview(idate, mode, transcript, story_id, source_id):
+    return run_query(
+        "INSERT INTO Interview (Interview_Date, Mode, Transcript, Story_ID, Source_ID) VALUES (%s,%s,%s,%s,%s)",
+        (idate, mode, transcript, story_id, source_id), fetch=False)
+
+def update_interview(iid, idate, mode, transcript, story_id, source_id):
+    return run_query(
+        "UPDATE Interview SET Interview_Date=%s, Mode=%s, Transcript=%s, Story_ID=%s, Source_ID=%s WHERE Interview_ID=%s",
+        (idate, mode, transcript, story_id, source_id, iid), fetch=False)
+
+def delete_interview(iid):
+    return run_query("DELETE FROM Interview WHERE Interview_ID=%s", (iid,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# DOCUMENT CRUD
+# ══════════════════════════════════════════════════════════
+def add_document(title, dtype, upload_date, story_id):
+    return run_query(
+        "INSERT INTO Document (Title, Type, Upload_Date, Story_ID) VALUES (%s,%s,%s,%s)",
+        (title, dtype, upload_date, story_id), fetch=False)
+
+def update_document(did, title, dtype, upload_date, story_id):
+    return run_query(
+        "UPDATE Document SET Title=%s, Type=%s, Upload_Date=%s, Story_ID=%s WHERE Document_ID=%s",
+        (title, dtype, upload_date, story_id, did), fetch=False)
+
+def delete_document(did):
+    return run_query("DELETE FROM Document WHERE Document_ID=%s", (did,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# LOCATION CRUD
+# ══════════════════════════════════════════════════════════
+def add_location(place, city, state, country, story_id):
+    return run_query(
+        "INSERT INTO Location (Place_Name, City, State, Country, Story_ID) VALUES (%s,%s,%s,%s,%s)",
+        (place, city, state, country, story_id), fetch=False)
+
+def update_location(lid, place, city, state, country, story_id):
+    return run_query(
+        "UPDATE Location SET Place_Name=%s, City=%s, State=%s, Country=%s, Story_ID=%s WHERE Location_ID=%s",
+        (place, city, state, country, story_id, lid), fetch=False)
+
+def delete_location(lid):
+    return run_query("DELETE FROM Location WHERE Location_ID=%s", (lid,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# NOTE CRUD
+# ══════════════════════════════════════════════════════════
+def add_note(content, created_date, story_id):
+    return run_query(
+        "INSERT INTO Note (Content, Created_Date, Story_ID) VALUES (%s,%s,%s)",
+        (content, created_date, story_id), fetch=False)
+
+def update_note(nid, content, created_date, story_id):
+    return run_query(
+        "UPDATE Note SET Content=%s, Created_Date=%s, Story_ID=%s WHERE Note_ID=%s",
+        (content, created_date, story_id, nid), fetch=False)
+
+def delete_note(nid):
+    return run_query("DELETE FROM Note WHERE Note_ID=%s", (nid,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# TIMELINE CRUD
+# ══════════════════════════════════════════════════════════
+def add_event(title, event_date, desc, story_id):
+    return run_query(
+        "INSERT INTO Timeline_Event (Event_Title, Event_Date, Description, Story_ID) VALUES (%s,%s,%s,%s)",
+        (title, event_date, desc, story_id), fetch=False)
+
+def update_event(eid, title, event_date, desc, story_id):
+    return run_query(
+        "UPDATE Timeline_Event SET Event_Title=%s, Event_Date=%s, Description=%s, Story_ID=%s WHERE Event_ID=%s",
+        (title, event_date, desc, story_id, eid), fetch=False)
+
+def delete_event(eid):
+    return run_query("DELETE FROM Timeline_Event WHERE Event_ID=%s", (eid,), fetch=False)
+
+# ══════════════════════════════════════════════════════════
+# USER DELETE + STORY PROGRESS
+# ══════════════════════════════════════════════════════════
+def delete_user(uid):
+    return run_query("DELETE FROM Users WHERE User_ID=%s", (uid,), fetch=False)
+
+def delete_complaint(cid):
+    return run_query("DELETE FROM Complaints WHERE Complaint_ID=%s", (cid,), fetch=False)
+
+def get_story_progress(story_id):
+    checks = {
+        "Interview":      "SELECT COUNT(*) AS n FROM Interview WHERE Story_ID=%s",
+        "Document":       "SELECT COUNT(*) AS n FROM Document WHERE Story_ID=%s",
+        "Location":       "SELECT COUNT(*) AS n FROM Location WHERE Story_ID=%s",
+        "Note":           "SELECT COUNT(*) AS n FROM Note WHERE Story_ID=%s",
+        "Timeline_Event": "SELECT COUNT(*) AS n FROM Timeline_Event WHERE Story_ID=%s",
+    }
+    score = 0
+    details = {}
+    for label, sql in checks.items():
+        df, _ = run_query(sql, (story_id,))
+        n = int(df.iloc[0]["n"]) if df is not None and not df.empty else 0
+        details[label] = n
+        if n > 0:
+            score += 1
+    progress = int((score / len(checks)) * 100)
+    return progress, details
+
+# ══════════════════════════════════════════════════════════
+# ALIASES (for app.py compatibility)
+# ══════════════════════════════════════════════════════════
+def get_conn():
+    return get_connection()
+
+def read_df(sql, params=None):
+    return run_query(sql, params)
